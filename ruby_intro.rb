@@ -83,5 +83,3 @@ class BookInStock
         "$%.2f" % @price
     end
 end
-
-p sum_to_n?([1,2,3,4,5,6,7,8,9], 10)
