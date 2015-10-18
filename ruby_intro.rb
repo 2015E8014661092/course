@@ -1,4 +1,4 @@
-# encoding=utf-8
+# coding: utf-8
 # Part 1
 
 # 数组求和

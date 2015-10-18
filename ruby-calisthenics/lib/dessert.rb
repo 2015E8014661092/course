@@ -1,3 +1,4 @@
+# coding: utf-8
 class Dessert
   attr_accessor :name, :calories
   def initialize(name, calories)

@@ -1,4 +1,4 @@
-# encoding=utf-8
+# coding: utf-8
 module FunWithStrings
   def palindrome?
     # 去掉大小写和非字符，比较s与s.reverse
