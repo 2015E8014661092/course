@@ -22,9 +22,32 @@ class MoviesController < ApplicationController
     end
     # 获取所有的电影
     @movies = Movie.all
-    if sort != {}
-      @movies = Movie.order(ordering[:order])
+    # 处理评级选择
+    @all_ratings = Movie.all_ratings
+    @selected_ratings = params[:ratings] || session[:ratings] || {}
+
+    # 默认选择全部
+    if @selected_ratings == {}
+      @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
+
+    # 处理session和param的冲突
+    # 以下是点击了排序按钮
+    if params[:sort] != session[:sort]
+      session[:sort] = sort
+    end
+    # 以下是点击了选择评级按钮
+    if params[:ratings] != session[:ratings] and @selected_ratings != {}
+      session[:sort] = sort
+      session[:ratings] = @selected_ratings
+    end
+
+    if sort != {}
+      @movies = Movie.where("rating": @selected_ratings.keys).order(ordering[:order])
+    else
+      @movies = Movie.where("rating": @selected_ratings.keys)
+    end
+
   end
 
   def new
